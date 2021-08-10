@@ -15,10 +15,13 @@
 
 ## 框架/库 <a id="vue"></a>
 
+* [Vue 3](vue/vue-3/README.md)
+  * [高级响应式系统 API](vue/vue-3/gao-ji-xiang-ying-shi-xi-tong-api.md)
 * [Vue](vue/vue.md)
 
 ## 前端工程化
 
+* [Rollup](qian-duan-gong-cheng-hua/rollup.md)
 * [webpack](qian-duan-gong-cheng-hua/webpack.md)
 
 ## 性能优化
