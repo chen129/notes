@@ -43,5 +43,19 @@
 </script>
 ```
 
+## markRaw
 
+显示标记一个对象**永远不会转换为响应式代理**，函数返回对象本身。
+
+```javascript
+const { markRaw, reactive, isReactive } from 'vue'
+export default {
+    setup () {
+        const obj = markRaw({ a: 1 })
+        const state = reactive(obj)
+
+        console.log(isReactive(state.a)) // false
+    }
+}
+```
 
