@@ -42,7 +42,8 @@
 
 ## 源码解读
 
-* [Vue](yuan-ma-jie-du/vue.md)
+* [Vue3](yuan-ma-jie-du/vue3/README.md)
+  * [Vue 3.0 的优化](yuan-ma-jie-du/vue3/vue-3.0-de-you-hua.md)
 * [Axios](yuan-ma-jie-du/axios.md)
 * [JQuery](yuan-ma-jie-du/jquery.md)
 * [vite](yuan-ma-jie-du/vite.md)
