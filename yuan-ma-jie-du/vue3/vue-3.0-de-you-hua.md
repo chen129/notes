@@ -81,3 +81,51 @@ const observed = new Proxy(data, {
 
 所以想优化整个 `Vue.js` 的运行时，除了数据劫持部分的优化，我们可以在耗时相对较多的 `patch` 阶段想办法，`Vue.js 3.0` 也是这么做的，并且它**通过在编译阶段优化编译的结果，来实现运行时 `patch` 过程的优化。**
 
+我们知道，通过数据劫持和依赖收集，Vue.js 2.x 的数据更新并触发重新渲染的粒度是组件级的：
+
+虽然 Vue 能保证触发更新的组件最小化，但在单个组件内部依然需要遍历该组件的整个 vnode 树，举个例子，比如我们要更新这个组件：
+
+```markup
+<template>
+  <div id="content">
+    <p class="text">static text</p>
+    <p class="text">static text</p>
+    <p class="text">{{message}}</p>
+    <p class="text">static text</p>
+    <p class="text">static text</p>
+  </div>
+</template>
+```
+
+整个 diff 过程如图所示：
+
+![](../../.gitbook/assets/ciqc1f-zmn-abap_aaej0vicgda415-1-.png)
+
+可以看到，因为这段代码中只有一个动态节点，所以这里有很多 `diff` 和遍历其实都是不需要的，这就会导致 `vnode` 的性能跟模版大小正相关，跟动态节点的数量无关，当一些组件的整个模版内只有少量动态节点时，这些遍历都是性能的浪费。
+
+而对于上述例子，理想状态只需要 `diff` 这个绑定 `message` 动态节点的 `p` 标签即可。
+
+`Vue.js 3.0` 做到了，它通过编译阶段对静态模板的分析，编译生成了 `Block tree`。`Block tree` 是一个将模版基于动态节点指令切割的嵌套区块，每个区块内部的节点结构是固定的，而且每个区块只需要以一个 `Array` 来追踪自身包含的动态节点。借助 `Block tree`，`Vue.js` 将 `vnode` 更新性能由与模版整体大小相关提升为与动态内容的数量相关，这是一个非常大的性能突破。
+
+除此之外，`Vue.js 3.0` 在编译阶段还包含了对 `Slot` 的编译优化、事件侦听函数的缓存优化，并且在运行时重写了 `diff` 算法。
+
+## 语法 API 优化：Composition API
+
+除了源码和性能方面，`Vue.js 3.0` 还在语法方面进行了优化，主要是提供了 `Composition API`。
+
+### 优化逻辑组织
+
+`Vue.js 3.0` 提供了一种新的 `API：Composition API`，它可以将某个逻辑关注点相关的代码全都放在一个函数里，这样当需要修改一个功能时，就不再需要在文件中跳来跳去。
+
+通过下图，我们可以很直观地感受到 `Composition API` 在逻辑组织方面的优势：
+
+![](../../.gitbook/assets/cgqchl8coi-acoxeaam5nziddqs980.png)
+
+### 优化逻辑复用
+
+当我们开发项目变得复杂的时候，免不了需要抽象出一些复用的逻辑。在 `Vue.js 2.x` 中，我们通常会用 `mixins` 去复用逻辑。
+
+使用单个 `mixin` 似乎问题不大，但是当我们一个组件混入大量不同的 `mixins` 的时候，会存在两个非常明显的问题：**命名冲突和数据来源不清晰**。
+
+首先每个 `mixin` 都可以定义自己的 `props`、`data`，它们之间是无感的，所以很容易定义相同的变量，导致命名冲突。另外对组件而言，如果模板中使用不在当前组件中定义的变量，那么就会不太容易知道这些变量在哪里定义的，这就是数据来源不清晰。但是`Vue.js 3.0` 设计的 `Composition API`，就很好地帮助我们解决了 `mixins` 的这两个问题。
+
