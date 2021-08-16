@@ -44,7 +44,8 @@
 
 * [Vue3](yuan-ma-jie-du/vue3/README.md)
   * [Vue 3.0 的优化](yuan-ma-jie-du/vue3/vue-3.0-de-you-hua.md)
-  * [组件的实现](yuan-ma-jie-du/vue3/zu-jian-de-shi-xian.md)
+  * [组件的实现](yuan-ma-jie-du/vue3/zu-jian-de-shi-xian/README.md)
+    * [组件的渲染：vnode 到真实 DOM 是如何转变的？](yuan-ma-jie-du/vue3/zu-jian-de-shi-xian/zu-jian-de-xuan-ran-vnode-dao-zhen-shi-dom-shi-ru-he-zhuan-bian-de.md)
   * [Composition API](yuan-ma-jie-du/vue3/composition-api.md)
   * [编译过程和背后的优化思想](yuan-ma-jie-du/vue3/bian-yi-guo-cheng-he-bei-hou-de-you-hua-si-xiang.md)
   * [特性及常用 API 实现原理](yuan-ma-jie-du/vue3/te-xing-ji-chang-yong-api-shi-xian-yuan-li.md)
