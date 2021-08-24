@@ -100,7 +100,9 @@
 
 ---
 
-* [工具类函数](gong-ju-lei-han-shu.md)
+* [工具类函数](gong-ju-lei-han-shu/README.md)
+  * [number 数值](gong-ju-lei-han-shu/number-shu-zhi.md)
+  * [string 字符串](gong-ju-lei-han-shu/string-zi-fu-chuan.md)
 * [核心源码及Api实现](he-xin-yuan-ma-ji-api-shi-xian/README.md)
   * [Promise](he-xin-yuan-ma-ji-api-shi-xian/promise.md)
 
