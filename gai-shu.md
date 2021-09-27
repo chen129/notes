@@ -1,3 +1,7 @@
+---
+description: 添加了类型系统的 JavaScript，适用于任何规模的项目。
+---
+
 # 概述
 
 ## ECMA 标准实现
